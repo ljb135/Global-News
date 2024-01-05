@@ -12,7 +12,7 @@ const Globe = forwardRef((props: any, ref) => (
   <GlobeTmpl {...props} forwardRef={ref} />
 ))
 
-const World = (props: any) => {
+function World(props: any){
 
   const globeRef = useRef();
 
