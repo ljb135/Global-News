@@ -8,6 +8,7 @@ import {
 import GlobeTmpl from "./globe"
 import * as THREE from 'three';
 
+// eslint-disable-next-line react/display-name
 const Globe = forwardRef((props: any, ref) => (
   <GlobeTmpl {...props} forwardRef={ref} />
 ))
