@@ -47,6 +47,7 @@ function News(props: any){
         </Dialog.Title>
         <div className="mt-2">
         <p className="text-sm text-gray-500" style={{
+            // @ts-ignore
             '-webkit-line-clamp': '3',
             'display': '-webkit-box',
             '-webkit-box-orient': 'vertical',
