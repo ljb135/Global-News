@@ -7,7 +7,6 @@ import {
 } from "react"
 import { Dialog, Transition } from '@headlessui/react'
 import { CircleFlag } from 'react-circle-flags'
-import dynamic from "next/dynamic"
 
 function News(props: any){
   const cancelButtonRef = useRef(null)
