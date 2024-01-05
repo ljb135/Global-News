@@ -14,10 +14,11 @@ const Globe = forwardRef((props: any, ref) => (
 
 const World = (props: any) => {
 
-  const globeRef = useRef()
+  const globeRef = useRef();
 
-  const [globeReady, setGlobeReady] = useState(false)
+  const [globeReady, setGlobeReady] = useState(false);
   const [countries, setCountries] = useState({ features: []});
+  const [hovered, setHover] = useState(null);
   
   useEffect(() => {
     // load data
@@ -35,25 +36,26 @@ const World = (props: any) => {
         return
     }
     (globeEl as any).controls().autoRotateSpeed = 0.3;
+    (globeEl as any).controls().autoRotate = 0.3;
 
     (globeEl as any).pointOfView({ altitude: 4 }, 5000);
 
     // Add clouds sphere
     const CLOUDS_IMG_URL = 'https://unpkg.com/three-globe@2.30.0/example/clouds/clouds.png'; // from https://github.com/turban/webgl-earth
     const CLOUDS_ALT = 0.005;
-    const CLOUDS_ROTATION_SPEED = 0; // deg/frame
+    const CLOUDS_ROTATION_SPEED = -0.01; // deg/frame
 
     new THREE.TextureLoader().load(CLOUDS_IMG_URL, cloudsTexture => {
       const clouds = new THREE.Mesh(
-        new THREE.SphereGeometry((globeEl as any).getGlobeRadius() * (1 + CLOUDS_ALT), 75, 75),
-        new THREE.MeshPhongMaterial({ map: cloudsTexture, transparent: true })
+        new THREE.SphereGeometry((globeEl as any).getGlobeRadius() * (1 + CLOUDS_ALT), 300, 300),
+        new THREE.MeshPhongMaterial({ map: cloudsTexture, transparent: true , opacity: 1})
       );
       (globeEl as any).scene().add(clouds);
 
-      (function rotateClouds() {
-        clouds.rotation.y += CLOUDS_ROTATION_SPEED * Math.PI / 180;
-        requestAnimationFrame(rotateClouds);
-      })();
+      // (function rotateClouds() {
+      //   requestAnimationFrame(rotateClouds);
+      //   clouds.rotation.y += CLOUDS_ROTATION_SPEED * Math.PI / 180;
+      // })();
     });
   }, [globeReady]);
 
@@ -78,10 +80,11 @@ const World = (props: any) => {
         polygonsData={countries.features}
         // polygonCapColor={(feature: any) => Math.max(0.1, Math.floor(Math.sqrt(+feature.properties.POP_EST/1.4e9)*255))}
         polygonSideColor="#ffffff"
-        polygonCapMaterial={{opacity: 0}}
+        polygonCapMaterial={(polygon:any) => polygon === hovered ? new THREE.MeshBasicMaterial({'wireframe': true}) : {}}
         // polygonSideMaterial={{opacity: 0}}
         polygonAltitude={0.003}
         onPolygonClick={(polygon: any) => getCountry(polygon)}
+        onPolygonHover={setHover}
         onGlobeReady={() => setGlobeReady(true)}
         animateIn={false}
         ref={globeRef}
