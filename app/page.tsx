@@ -4,6 +4,12 @@ import {useState} from "react"
 // import World from './world'
 import News from "./news"
 import dynamic from "next/dynamic"
+import { Staatliches } from 'next/font/google'
+
+const staatliches = Staatliches({
+  weight: '400',
+  subsets: ['latin'],
+})
 
 const World = dynamic(
   () => import('./world'),
@@ -16,6 +22,11 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen">
+      <style jsx global>{`
+        html {
+          font-family: ${staatliches.style.fontFamily};
+        }
+      `}</style>
       <World open={open} setOpen={setOpen} setCountry={setCountry}/>
       <News open={open} country={country} setOpen={setOpen}/>
     </main>
