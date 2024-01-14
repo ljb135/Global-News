@@ -5,6 +5,7 @@ import {
   Fragment,
   forwardRef,
 } from "react"
+import Title from "./title"
 import GlobeTmpl from "./globe"
 import * as THREE from 'three';
 
@@ -74,6 +75,7 @@ function World(props: any){
 
   return (
     <>
+      {globeReady ? <Title/> : null}
       <Globe
         globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
         bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"

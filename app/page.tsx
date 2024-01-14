@@ -15,7 +15,7 @@ export default function Home() {
   const [country, setCountry] = useState(null)
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="flex min-h-screen">
       <World open={open} setOpen={setOpen} setCountry={setCountry}/>
       <News open={open} country={country} setOpen={setOpen}/>
     </main>
