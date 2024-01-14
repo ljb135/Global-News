@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 const staatliches = Staatliches({
     weight: '400',
     subsets: ['latin'],
+    display: 'swap'
   })
 
 function Title(){
@@ -11,7 +12,9 @@ function Title(){
     const [opacity, setOpacity] = useState(1)
 
     useEffect(() => {
-        setOpacity(0)
+        setTimeout(function() {
+            setOpacity(0);
+        }, 500);
         setTimeout(function() {
             setVisible(false);
         }, 5000);
