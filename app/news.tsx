@@ -22,7 +22,7 @@ function News(props: any){
 
         fetch(`https://api.worldnewsapi.com/search-news?source-countries=${props.country.ISO_A2}&sort=publish-time&sort-direction=DESC&api-key=7a7ad3aa35344b389cca985f700d823a`, requestOptions)
         .then(response => response.text())
-        .then(result => {setArticles(JSON.parse(result).news); setLoaded(true)})
+        .then(result => {setArticles(JSON.parse(result).news); setLoaded(true); return})
         .catch(error => console.log('error', error));
 
         // fetch(`https://newsapi.org/v2/top-headlines?country=${props.country.ISO_A2}&apiKey=747ba7350a824b9488fe577aab6a12d0`, requestOptions)
@@ -30,7 +30,7 @@ function News(props: any){
         // .then(result => setArticles(JSON.parse(result).articles))
         // .catch(error => console.log('error', error));
 
-        // console.log(articles)
+        console.log(articles)
     }
   }, [props])
 
@@ -42,7 +42,7 @@ function News(props: any){
     </div> */}
     <div className="mt-3 text-center sm:mt-0 sm:text-left">
         <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-            <a href={article.url}>{article.title}</a>
+            <a href={article.url} target="_blank">{article.title}</a>
         </Dialog.Title>
         <div className="mt-2">
         <p className="text-sm text-gray-500" style={{
@@ -108,7 +108,8 @@ function News(props: any){
     props.setOpen(false);
     setTimeout(function() {
         setLoaded(false);
-    }, 1000);
+        setArticles([]);
+    }, 500);
   }
 
   return(
